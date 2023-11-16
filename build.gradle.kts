@@ -3,6 +3,7 @@ plugins {
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
     id("io.freefair.lombok") version "8.4"
+    id("jacoco")
 }
 
 group = "dev.aleixmorgadas"
@@ -43,4 +44,13 @@ tasks.withType<Test> {
 
 tasks.bootBuildImage {
     builder.set("paketobuildpacks/builder-jammy-base:latest")
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required = false
+        csv.required = false
+        html.outputLocation = layout.buildDirectory.dir("jacocoHtml")
+    }
 }
