@@ -2,10 +2,7 @@ package dev.aleixmorgadas.bcnengmodelingproduct.domain.category;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(CategoryController.URI)
@@ -21,6 +18,11 @@ public class CategoryController {
         var category = Category.of(request.name());
         categoryRepository.save(category);
         return ResponseEntity.ok(category);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Category> getCategory(@PathVariable Long id) {
+        return ResponseEntity.of(categoryRepository.findById(id));
     }
 
     public static class Requests {
