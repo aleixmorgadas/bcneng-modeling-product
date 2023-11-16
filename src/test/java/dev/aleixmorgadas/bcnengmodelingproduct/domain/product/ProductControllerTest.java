@@ -45,4 +45,15 @@ public class ProductControllerTest extends AbstractIntegrationTest {
         assertThat(product.getCategoryId()).isEqualTo(activeCategory.getId());
     }
 
+    @Test
+    void needsAnActiveCategoryToCreateAProduct() throws Exception {
+        var inactiveCategory = Category.of("Books", false);
+        categoryRepository.save(inactiveCategory);
+
+        var request = new ProductController.Requests.CreateProduct("The Lord of the Rings", inactiveCategory.getId());
+        mockMvc.perform(post(ProductController.URI)
+                        .content(objectMapper.writeValueAsString(request))
+                        .contentType("application/json"))
+                .andExpect(status().isBadRequest());
+    }
 }
