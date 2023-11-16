@@ -17,7 +17,7 @@ public class TestBcnengModelingProductApplication {
     }
 
     public static void main(String[] args) {
-        SpringApplication.from(BcnengmodelingproductApplication::main).with(TestBcnengModelingProductApplication.class).run(args);
+        SpringApplication.from(BcnengModelingProductApplication::main).with(TestBcnengModelingProductApplication.class).run(args);
     }
 
 }
