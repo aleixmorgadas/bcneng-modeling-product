@@ -1,6 +1,6 @@
 package dev.aleixmorgadas.bcnengmodelingproduct.domain.category;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.ListCrudRepository;
 
-public interface CategoryRepository extends JpaRepository<Category, Long> {
+public interface CategoryRepository extends ListCrudRepository<Category, Long> {
 }
