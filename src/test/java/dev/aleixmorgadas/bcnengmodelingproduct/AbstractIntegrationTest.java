@@ -18,6 +18,10 @@ public abstract class AbstractIntegrationTest {
     @ServiceConnection
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:latest");
 
+    static {
+        postgreSQLContainer.start();
+    }
+
     @Autowired
     protected MockMvc mockMvc;
     protected ObjectMapper objectMapper = new ObjectMapper();
