@@ -12,12 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 public class ProductController {
     public static final String URI = "/products";
-    private final ProductRepository productRepository;
+    private final ProductService productService;
 
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Requests.CreateProduct request) {
-        var product = Product.of(request.name(), request.categoryId());
-        productRepository.save(product);
+        var product = productService.create(request);
         return ResponseEntity.ok(product);
     }
 
