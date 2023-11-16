@@ -16,12 +16,9 @@ public class CategoryControllerTest extends AbstractIntegrationTest {
 
     @Test
     void createsCategory() throws Exception {
+        var request = new CategoryController.Requests.CreateCategory("Electronics");
         var response = mockMvc.perform(post("/categories")
-                        .content("""
-                                {
-                                    "name": "Electronics"
-                                }
-                                """)
+                        .content(objectMapper.writeValueAsString(request))
                         .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNotEmpty())
