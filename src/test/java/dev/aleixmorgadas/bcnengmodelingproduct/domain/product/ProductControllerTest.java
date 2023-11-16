@@ -26,8 +26,9 @@ public class ProductControllerTest extends AbstractIntegrationTest {
 
     @Test
     void createsAProduct() throws Exception {
-        mockMvc.perform(post("/products")
-                .content("{\"name\": \"The Lord of the Rings\", \"categoryId\": " + activeCategory.getId() + "}"))
+        mockMvc.perform(post(ProductController.URI)
+                        .content("{\"name\": \"The Lord of the Rings\", \"categoryId\": " + activeCategory.getId() + "}")
+                        .contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").isNotEmpty())
                 .andExpect(jsonPath("$.name").value("The Lord of the Rings"))
