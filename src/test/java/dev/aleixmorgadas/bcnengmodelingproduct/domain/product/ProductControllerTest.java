@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -55,5 +56,17 @@ public class ProductControllerTest extends AbstractIntegrationTest {
                         .content(objectMapper.writeValueAsString(request))
                         .contentType("application/json"))
                 .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void receiveAProduct() throws Exception {
+        var product = Product.of("The Lord of the Rings", activeCategory.getId());
+        productRepository.save(product);
+
+        mockMvc.perform(get(ProductController.URI + "/" + product.getId()))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(product.getId()))
+                .andExpect(jsonPath("$.name").value("The Lord of the Rings"))
+                .andExpect(jsonPath("$.category").value(activeCategory.getName()));
     }
 }
