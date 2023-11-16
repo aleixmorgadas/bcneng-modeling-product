@@ -23,4 +23,8 @@ public class Category {
     public static Category of(String name) {
         return new Category(null, name, true);
     }
+
+    public static Category of(String name, boolean isActive) {
+        return new Category(null, name, isActive);
+    }
 }

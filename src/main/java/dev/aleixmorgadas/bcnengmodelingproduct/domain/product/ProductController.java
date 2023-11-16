@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
     public static final String URI = "/products";
     private final ProductRepository productRepository;
+
     @PostMapping
     public ResponseEntity<Product> create(@RequestBody Requests.CreateProduct request) {
         var product = Product.of(request.name(), request.categoryId());
